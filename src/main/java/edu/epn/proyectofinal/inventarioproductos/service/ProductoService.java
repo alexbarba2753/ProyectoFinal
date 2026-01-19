@@ -1,0 +1,81 @@
+package edu.epn.proyectofinal.inventarioproductos.service;
+
+import edu.epn.proyectofinal.inventarioproductos.dto.ProductoDTO;
+import edu.epn.proyectofinal.inventarioproductos.model.Producto;
+import edu.epn.proyectofinal.inventarioproductos.repository.ProductoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class ProductoService implements IProductoService{
+
+    @Autowired
+    private ProductoRepository productoRepository;
+
+    @Override
+    public List<ProductoDTO> listarTodos() {
+        return productoRepository.findAll().stream()
+                .map(this::convertirADto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public ProductoDTO buscarPorId(Long id) {
+        Producto producto = productoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado con ID: " + id));
+        return convertirADto(producto);
+    }
+
+    @Override
+    public ProductoDTO guardar(ProductoDTO productoDTO) {
+        Producto producto = convertirAEntidad(productoDTO);
+        return convertirADto(productoRepository.save(producto));
+    }
+
+    @Override
+    public ProductoDTO actualizar(Long id, ProductoDTO productoDTO) {
+        Producto producto = productoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("No se puede actualizar, no existe el ID: " + id));
+
+        producto.setNombre(productoDTO.getNombre());
+        producto.setAnime(productoDTO.getAnime());
+        producto.setPrecio(productoDTO.getPrecio());
+        producto.setStock(productoDTO.getStock());
+        producto.setImagenUrl(productoDTO.getImagenUrl());
+
+        return convertirADto(productoRepository.save(producto));
+    }
+
+    @Override
+    public void eliminar(Long id) {
+        productoRepository.deleteById(id);
+    }
+
+    // Mapeos
+    // Entidad a DTO
+    private ProductoDTO convertirADto(Producto p){
+        ProductoDTO dto = new ProductoDTO();
+        dto.setId(p.getId());
+        dto.setNombre(p.getNombre());
+        dto.setAnime(p.getAnime());
+        dto.setPrecio(p.getPrecio());
+        dto.setStock(p.getStock());
+        dto.setImagenUrl(p.getImagenUrl());
+        return dto;
+    }
+
+    // DTO a Entidad
+    private Producto convertirAEntidad(ProductoDTO dto){
+        Producto p = new Producto();
+        p.setId(dto.getId());
+        p.setNombre(dto.getNombre());
+        p.setAnime(dto.getAnime());
+        p.setPrecio(dto.getPrecio());
+        p.setStock(dto.getStock());
+        p.setImagenUrl(dto.getImagenUrl());
+        return p;
+    }
+}
