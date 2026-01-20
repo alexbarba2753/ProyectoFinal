@@ -29,5 +29,6 @@ public class Producto {
     @Min(value = 0, message = "El stock no puede ser negativo")
     private Integer stock;
 
+    @Column(name = "imagen_url")
     private String imagenUrl;
 }

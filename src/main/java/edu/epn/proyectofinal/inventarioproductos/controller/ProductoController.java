@@ -11,34 +11,49 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/productos")
+@RequestMapping("/api")
 @CrossOrigin(origins = "*") // Permite que el frontend se conecte desde cualquier origen
 public class ProductoController {
 
-    @Autowired
+    // Inyección de la interfaz del servicio mediante el constructor
     private IProductoService productoService;
 
-    @GetMapping
+    private  ProductoController (IProductoService productoService){
+        this.productoService = productoService;
+    }
+
+    // Get all productos
+    @GetMapping ("/productos")
     public ResponseEntity<List<ProductoDTO>> listar() {
         return ResponseEntity.ok(productoService.listarTodos());
     }
 
-    @GetMapping("/{id}")
+    // Get producto by ID
+    @GetMapping("/productos/{id}")
     public ResponseEntity<ProductoDTO> obtenerPorId(@PathVariable Long id) {
         return ResponseEntity.ok(productoService.buscarPorId(id));
     }
 
-    @PostMapping
+    // Post crear nuevo producto
+    @PostMapping("/productos")
     public ResponseEntity<ProductoDTO> crear(@Valid @RequestBody ProductoDTO dto) {
         return new ResponseEntity<>(productoService.guardar(dto), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    // Put actualizar producto existente
+    @PutMapping("/productos/{id}")
     public ResponseEntity<ProductoDTO> editar(@PathVariable Long id, @Valid @RequestBody ProductoDTO dto) {
         return ResponseEntity.ok(productoService.actualizar(id, dto));
     }
 
-    @DeleteMapping("/{id}")
+    // Patch actualizar producto existente
+    @PatchMapping("/productos/{id}")
+    public ResponseEntity<ProductoDTO> editarUnit(@PathVariable Long id, @Valid @RequestBody ProductoDTO dto) {
+        return ResponseEntity.ok(productoService.actualizar(id, dto));
+    }
+
+    // Delete producto por ID
+    @DeleteMapping("/productos/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         productoService.eliminar(id);
         return ResponseEntity.noContent().build();
