@@ -1,9 +1,21 @@
 const API_URL = 'http://localhost:8080/api/productos';
 
+
+// Forzar que la página cargue en el tope superior
+window.onbeforeunload = function () {
+    window.scrollTo(0, 0);
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    window.scrollTo(0, 0);
+    cargarProductos();
+});
+
 // Se ejecuta cuando el HTML termina de cargar
 document.addEventListener('DOMContentLoaded', () => {
     cargarProductos();
 });
+
 
 // 1. Función para Listar (GET)
 async function cargarProductos() {
@@ -16,17 +28,21 @@ async function cargarProductos() {
 
         productos.forEach(p => {
             contenedor.innerHTML += `
-                <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 shadow-sm">
+                <div class="col-md-6 col-lg-4 d-flex align-items-stretch"> <div class="card shadow-sm w-100">
                         <img src="${p.imagenUrl || 'https://via.placeholder.com/150'}" class="card-img-top product-img" alt="${p.nombre}">
                         <div class="card-body">
-                            <span class="badge badge-anime mb-2">${p.anime}</span>
-                            <h5 class="card-title">${p.nombre}</h5>
-                            <p class="price-text">$${p.precio.toFixed(2)}</p>
-                            <p class="text-muted small">Stock: <strong>${p.stock}</strong> unidades</p>
-                            <div class="d-flex gap-2">
-                                <button onclick="prepararEdicion(${p.id}, '${p.nombre}', '${p.anime}', ${p.precio}, ${p.stock}, '${p.imagenUrl}')" class="btn btn-outline-primary btn-sm flex-grow-1">Editar</button>
-                                <button onclick="eliminarProducto(${p.id})" class="btn btn-outline-danger btn-sm">Borrar</button>
+                            <div>
+                                <span class="badge badge-anime mb-2">${p.anime}</span>
+                                <h5 class="card-title" style="color: white !important;">${p.nombre}</h5>
+                                <p class="price-text">$${p.precio.toFixed(2)}</p>
+                                <p class="text-muted small">Stock: <strong>${p.stock}</strong> unidades</p>
+                            </div>
+
+                            <div class="mt-auto-custom d-flex gap-2">
+                                <button onclick="prepararEdicion(${p.id}, '${p.nombre}', '${p.anime}', ${p.precio}, ${p.stock}, '${p.imagenUrl}')"
+                                        class="btn btn-outline-primary btn-sm flex-grow-1">Editar</button>
+                                <button onclick="eliminarProducto(${p.id})"
+                                        class="btn btn-outline-danger btn-sm">Borrar</button>
                             </div>
                         </div>
                     </div>

@@ -1,18 +1,63 @@
+/* Importamos Orbitron para el estilo Multiverso y Bangers para el impacto */
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Orbitron:wght@400;700&family=Inter:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Orbitron:wght@400;700&display=swap');
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* --- CONFIGURACIÓN GENERAL --- */
 body {
     background-color: #121212;
     color: #e0e0e0;
     font-family: 'Inter', sans-serif;
+    font-style: italic;
 }
 
-.card h3, label {
-    color: #ffffff;
+/* --- ENCABEZADO (HEADER) --- */
+header {
+    background-image: linear-gradient(to bottom, #121212, #1a1a1a);
+    border-bottom: 3px solid #ff9800;
 }
 
+header h1 {
+    font-family: 'Bangers', cursive;
+    font-size: 4.5rem;
+    color: #ff9800;
+    text-shadow: 4px 4px 0px #000, 0 0 20px rgba(255, 152, 0, 0.5);
+    letter-spacing: 4px;
+}
+
+header p {
+    font-family: 'Orbitron', sans-serif;
+    font-style: italic;
+    color: #00d4ff !important;
+}
+
+.drop-shadow-anime {
+    filter: drop-shadow(0 0 15px rgba(255, 152, 0, 0.4));
+    transition: transform 0.5s ease;
+}
+
+.drop-shadow-anime:hover {
+    transform: scale(1.05);
+}
+
+/* --- TARJETAS DE PRODUCTO --- */
 .card {
     background-color: #1e1e1e;
     border: 1px solid #333;
     border-radius: 12px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     transition: transform 0.2s ease-in-out;
+}
+
+.card-title, .btn {
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .card:hover {
@@ -20,17 +65,68 @@ body {
     border-color: #ff9800;
 }
 
+.card-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 1.25rem;
+}
 
+.product-img {
+    height: 250px;
+    width: 100%;
+    object-fit: contain;
+    background-color: #2a2a2a;
+    border-radius: 8px 8px 0 0;
+}
+
+/* --- TEXTOS Y ETIQUETAS --- */
 .card-title {
     color: #ffffff !important;
     font-weight: bold;
     margin-top: 10px;
 }
 
+.price-text {
+    font-size: 1.5rem;
+    color: #4caf50;
+    font-weight: bold;
+}
 
 .text-muted {
     color: #00d4ff !important;
     font-size: 0.9rem;
+}
+
+.badge-anime {
+    background-color: #3b3b3b;
+    color: #ff9800;
+    font-size: 0.8rem;
+}
+
+/* --- FORMULARIO --- */
+.card h3 {
+    color: #ff9800;
+    margin-bottom: 20px;
+}
+
+label {
+    color: #ffffff;
+}
+
+#formProducto input {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+#formProducto input::placeholder {
+    color: #6c757d;
+}
+
+/* --- BOTONES --- */
+.mt-auto-custom {
+    margin-top: auto;
+    padding-top: 15px;
 }
 
 .btn-warning {
@@ -39,7 +135,6 @@ body {
     font-weight: bold;
     color: #000;
 }
-
 
 .btn-outline-primary {
     color: #3182ce;
@@ -51,21 +146,12 @@ body {
     border-color: #e53e3e;
 }
 
-.product-img {
-    height: 250px;
-    object-fit: contain;
-    background-color: #2a2a2a;
-    border-radius: 8px 8px 0 0;
-}
-
-.badge-anime {
-    background-color: #3b3b3b;
-    color: #ff9800;
-    font-size: 0.8rem;
-}
-
-.price-text {
-    font-size: 1.5rem;
-    color: #4caf50;
-    font-weight: bold;
+/* --- RESPONSIVIDAD --- */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+    header img {
+        max-width: 150px !important;
+    }
 }

@@ -1,9 +1,9 @@
 package edu.epn.proyectofinal.inventarioproductos.service;
 
 import edu.epn.proyectofinal.inventarioproductos.dto.ProductoDTO;
+import edu.epn.proyectofinal.inventarioproductos.exception.FindIdException;
 import edu.epn.proyectofinal.inventarioproductos.model.Producto;
 import edu.epn.proyectofinal.inventarioproductos.repository.IProductoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,7 +29,7 @@ public class ProductoService implements IProductoService{
     @Override
     public ProductoDTO buscarPorId(Long id) {
         Producto producto = productoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Producto no encontrado con ID: " + id));
+                .orElseThrow(() -> new FindIdException(id));
         return convertirADto(producto);
     }
 
@@ -42,7 +42,7 @@ public class ProductoService implements IProductoService{
     @Override
     public ProductoDTO actualizar(Long id, ProductoDTO productoDTO) {
         Producto producto = productoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("No se puede actualizar, no existe el ID: " + id));
+                .orElseThrow(() -> new FindIdException(id));
 
         if (productoDTO.getNombre()!= null)
             producto.setNombre(productoDTO.getNombre());
