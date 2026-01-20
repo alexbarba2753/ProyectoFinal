@@ -1,0 +1,42 @@
+body {
+    background-color: #121212;
+    color: #e0e0e0;
+    font-family: 'Inter', sans-serif;
+}
+
+.card {
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 12px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: #ff9800; /* Color naranja anime /
+}
+
+.btn-warning {
+    background-color: #ff9800;
+    border: none;
+    font-weight: bold;
+    color: #000;
+}
+
+.product-img {
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+}
+
+.badge-anime {
+    background-color: #3b3b3b;
+    color: #ff9800;
+    font-size: 0.8rem;
+}
+
+.price-text {
+    font-size: 1.5rem;
+    color: #4caf50; / Verde para el precio */
+    font-weight: bold;
+}
