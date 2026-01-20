@@ -1,11 +1,17 @@
 INSERT INTO productos (nombre, anime, precio, stock, imagen_url) VALUES
-('Figura Kaiju 8', 'Kaiju 8', 45.99, 10, 'https://sw6.elbenwald.de/media/66/08/c6/1724280238/E1084536_1.jpg');
+('Tengen Uzui Nichirin Swords', 'Demon Slayer Kimetsu no Yaiba ', 120.50, 4, 'https://ecuacollections.com/images/thumbs/0022572_proplica-demon-slayer-kimetsu-no-yaiba-tengen-uzuis-nichirin-swords_550.jpeg');
 
 INSERT INTO productos (nombre, anime, precio, stock, imagen_url) VALUES
-('Kimetsu no Yaiba Box Set', 'Kimetsu no Yaiba', 50.50, 4, 'https://images.cdn2.buscalibre.com/fit-in/360x360/ec/00/ec0014bf0530067459b147387d609706.jpg');
+('Kamado Tanjiro (Hinokami Kagura)', 'Demon Slayer Kimetsu no Yaiba', 75.00, 5, 'https://ecuacollections.com/images/thumbs/0018572_figuarts-zero-demon-slayer-kimetsu-no-yaiba-kamado-tanjiro-hinokami-kagura_550.jpeg');
 
 INSERT INTO productos (nombre, anime, precio, stock, imagen_url) VALUES
 ('Figura Ryuk', 'Death Note', 55.00, 7, 'https://www.raccoongames.es/img/productos/death-note-figura-ryuk/death-note-figurine-ryuk%202-2.jpg');
 
 INSERT INTO productos (nombre, anime, precio, stock, imagen_url) VALUES
 ('Titan de Ataque vs Titan Acorazado', 'Shingeki no Kyojin', 59.99, 8, 'https://kurogami.com/img/productos/37/35/estatua-eren-vs-armored-titan-ataque-a-los-titanes-elite-exclusive-01_1.jpg');
+
+INSERT INTO productos (nombre, anime, precio, stock, imagen_url) VALUES
+('Yuta Okkotsu x Rika Orimoto', 'Jujutsu Kaisen', 47.99, 6, 'https://i.ebayimg.com/images/g/W8gAAOSwSl1mjiir/s-l500.jpg');
+
+INSERT INTO productos (nombre, anime, precio, stock, imagen_url) VALUES
+('Denji-ChainSaw Man', 'ChainSaw Man', 30.99, 11, 'https://image.made-in-china.com/155f0j00wrJkBeidyLbT/29cm-Chainsaw-Man-Denji-Anime-Figure-Denji-Power.webp');
