@@ -4,6 +4,10 @@ body {
     font-family: 'Inter', sans-serif;
 }
 
+.card h3, label {
+    color: #ffffff;
+}
+
 .card {
     background-color: #1e1e1e;
     border: 1px solid #333;
@@ -13,7 +17,20 @@ body {
 
 .card:hover {
     transform: translateY(-5px);
-    border-color: #ff9800; /* Color naranja anime /
+    border-color: #ff9800;
+}
+
+
+.card-title {
+    color: #ffffff !important;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+
+.text-muted {
+    color: #00d4ff !important;
+    font-size: 0.9rem;
 }
 
 .btn-warning {
@@ -23,9 +40,21 @@ body {
     color: #000;
 }
 
+
+.btn-outline-primary {
+    color: #3182ce;
+    border-color: #3182ce;
+}
+
+.btn-outline-danger {
+    color: #e53e3e;
+    border-color: #e53e3e;
+}
+
 .product-img {
     height: 250px;
-    object-fit: cover;
+    object-fit: contain;
+    background-color: #2a2a2a;
     border-radius: 8px 8px 0 0;
 }
 
@@ -37,6 +66,6 @@ body {
 
 .price-text {
     font-size: 1.5rem;
-    color: #4caf50; / Verde para el precio */
+    color: #4caf50;
     font-weight: bold;
 }

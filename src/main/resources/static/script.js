@@ -63,7 +63,7 @@ document.getElementById('formProducto').addEventListener('submit', async (e) => 
             cargarProductos(); // Refrescamos la lista
         } else {
             const errores = await respuesta.json();
-            // Aquí es donde brilla el GlobalExceptionHandler del Backend
+            // Aquí se usa el GlobalExceptionHandler del Backend
             alert("Error: " + JSON.stringify(errores));
         }
     } catch (error) {

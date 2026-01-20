@@ -12,8 +12,12 @@ import java.util.stream.Collectors;
 @Service
 public class ProductoService implements IProductoService{
 
-    @Autowired
-    private IProductoRepository productoRepository;
+
+    private final IProductoRepository productoRepository;
+
+    public ProductoService(IProductoRepository productoRepository) {
+        this.productoRepository = productoRepository;
+    }
 
     @Override
     public List<ProductoDTO> listarTodos() {

@@ -3,7 +3,6 @@ package edu.epn.proyectofinal.inventarioproductos.controller;
 import edu.epn.proyectofinal.inventarioproductos.dto.ProductoDTO;
 import edu.epn.proyectofinal.inventarioproductos.service.IProductoService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,11 +11,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "*") // Permite que el frontend se conecte desde cualquier origen
 public class ProductoController {
 
     // Inyección de la interfaz del servicio mediante el constructor
-    private IProductoService productoService;
+    private final IProductoService productoService;
 
     private  ProductoController (IProductoService productoService){
         this.productoService = productoService;
