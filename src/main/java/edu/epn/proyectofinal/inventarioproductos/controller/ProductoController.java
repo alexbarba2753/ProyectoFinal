@@ -40,13 +40,13 @@ public class ProductoController {
 
     // Put actualizar producto existente
     @PutMapping("/productos/{id}")
-    public ResponseEntity<ProductoDTO> editar(@PathVariable Long id, @Valid @RequestBody ProductoDTO dto) {
+    public ResponseEntity<ProductoDTO> editar(@PathVariable Long id, @RequestBody ProductoDTO dto) {
         return ResponseEntity.ok(productoService.actualizar(id, dto));
     }
 
     // Patch actualizar producto existente
     @PatchMapping("/productos/{id}")
-    public ResponseEntity<ProductoDTO> editarUnit(@PathVariable Long id, @Valid @RequestBody ProductoDTO dto) {
+    public ResponseEntity<ProductoDTO> editarUnit(@PathVariable Long id, @RequestBody ProductoDTO dto) {
         return ResponseEntity.ok(productoService.actualizar(id, dto));
     }
 
