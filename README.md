@@ -1,6 +1,6 @@
 # ⚡ MultiVerse GeeK API - Inventario Premium
 
-![MultiVerse GeeK API](/assets/logo.png) 
+![MultiVerse GeeK API](src/main/resources/static/assets/logo.png) 
 
 ##  Descripción del Proyecto
 **MultiVerse GeeK API** es una solución integral para la gestión de inventarios de figuras coleccionables de anime y superhéroes. El sistema permite realizar operaciones **CRUD** completas sobre un catálogo dinámico, integrando validaciones de negocio robustas y una interfaz de usuario moderna.
