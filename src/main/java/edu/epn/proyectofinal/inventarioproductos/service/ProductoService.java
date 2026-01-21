@@ -44,10 +44,10 @@ public class ProductoService implements IProductoService{
         Producto producto = productoRepository.findById(id)
                 .orElseThrow(() -> new FindIdException(id));
 
-        if (productoDTO.getNombre()!= null)
+        if (productoDTO.getNombre() != null && !productoDTO.getNombre().isBlank())
             producto.setNombre(productoDTO.getNombre());
 
-        if (productoDTO.getAnime()!= null)
+        if (productoDTO.getAnime()!= null && !productoDTO.getAnime().isBlank())
             producto.setAnime(productoDTO.getAnime());
 
         if (productoDTO.getPrecio()!= null)
@@ -56,7 +56,7 @@ public class ProductoService implements IProductoService{
         if (productoDTO.getStock()!= null)
             producto.setStock(productoDTO.getStock());
 
-        if (productoDTO.getImagenUrl()!= null)
+        if (productoDTO.getImagenUrl()!= null && !productoDTO.getImagenUrl().isBlank())
             producto.setImagenUrl(productoDTO.getImagenUrl());
 
         return convertirADto(productoRepository.save(producto));
