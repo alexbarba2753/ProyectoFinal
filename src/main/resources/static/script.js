@@ -2,17 +2,8 @@ const API_URL = 'https://proyectofinal-ynd2.onrender.com/api/productos';
 
 
 // Forzar que la página cargue en el tope superior
-window.onbeforeunload = function () {
-    window.scrollTo(0, 0);
-};
-
 document.addEventListener('DOMContentLoaded', () => {
     window.scrollTo(0, 0);
-    cargarProductos();
-});
-
-// Se ejecuta cuando el HTML termina de cargar
-document.addEventListener('DOMContentLoaded', () => {
     cargarProductos();
 });
 
@@ -57,14 +48,14 @@ async function cargarProductos() {
 
 // 2. Función para Guardar (POST)
 document.getElementById('formProducto').addEventListener('submit', async (e) => {
-    e.preventDefault(); // Evita que la página se recargue
+    e.preventDefault();
 
     const producto = {
-        nombre: document.getElementById('nombre').value,
-        anime: document.getElementById('anime').value,
+        nombre: document.getElementById('nombre').value.trim(),
+        anime: document.getElementById('anime').value.trim(),
         precio: parseFloat(document.getElementById('precio').value),
         stock: parseInt(document.getElementById('stock').value),
-        imagenUrl: document.getElementById('imagenUrl').value
+        imagenUrl: document.getElementById('imagenUrl').value.trim()
     };
 
     try {
@@ -74,16 +65,19 @@ document.getElementById('formProducto').addEventListener('submit', async (e) => 
             body: JSON.stringify(producto)
         });
 
+        const data = await respuesta.json(); // Intentamos leer la respuesta del GlobalExceptionHandler
+
         if (respuesta.ok) {
+            alert("¡Producto registrado con éxito!");
             document.getElementById('formProducto').reset();
-            cargarProductos(); // Refrescamos la lista
+            cargarProductos();
         } else {
-            const errores = await respuesta.json();
-            // Aquí se usa el GlobalExceptionHandler del Backend
-            alert("Error: " + JSON.stringify(errores));
+            // Si el backend mandó errores de validación, los mostramos bonitos
+            const mensajeError = data.mensaje || JSON.stringify(data);
+            alert("Error del servidor: " + mensajeError);
         }
     } catch (error) {
-        alert("Error de conexión");
+        alert("Error de conexión con la MultiVerse GeeK API");
     }
 });
 
