@@ -102,19 +102,32 @@ async function eliminarProducto(id) {
 
 // 4. Función para Editar (PUT/PATCH flexible)
 async function prepararEdicion(id, nombre, anime, precio, stock, imagenUrl) {
-    // Pedimos los nuevos datos (si se cancela o deja vacío, el backend mantendrá el anterior)
     const nuevoNombre = prompt("Nuevo nombre (deja vacío para no cambiar):", nombre);
     const nuevoAnime = prompt("Nuevo anime:", anime);
-    const nuevoPrecio = prompt("Nuevo precio:", precio);
-    const nuevoStock = prompt("Nuevo stock:", stock);
+    const nuevoPrecioRaw = prompt("Nuevo precio:", precio);
+    const nuevoStockRaw = prompt("Nuevo stock:", stock);
     const nuevaImagen = prompt("Nueva URL de imagen:", imagenUrl);
 
-    // Creamos el objeto. Si el usuario no escribió nada, enviamos null para que el backend lo ignore
+    // VALIDACIÓN DE NÚMEROS
+    const precioNumerico = parseFloat(nuevoPrecioRaw);
+    const stockNumerico = parseInt(nuevoStockRaw);
+
+    // Si el usuario escribió algo que NO es un número, avisamos y detenemos la función
+    if (nuevoPrecioRaw && isNaN(precioNumerico)) {
+        alert("¡Error! El precio debe ser un número válido (ej: 15.50)");
+        return; // Detiene la ejecución aquí
+    }
+
+    if (nuevoStockRaw && isNaN(stockNumerico)) {
+        alert("¡Error! El stock debe ser un número entero");
+        return;
+    }
+
     const productoEditado = {
         nombre: nuevoNombre || null,
         anime: nuevoAnime || null,
-        precio: nuevoPrecio ? parseFloat(nuevoPrecio) : null,
-        stock: nuevoStock ? parseInt(nuevoStock) : null,
+        precio: nuevoPrecioRaw ? precioNumerico : null,
+        stock: nuevoStockRaw ? stockNumerico : null,
         imagenUrl: nuevaImagen || null
     };
 
@@ -126,11 +139,11 @@ async function prepararEdicion(id, nombre, anime, precio, stock, imagenUrl) {
         });
 
         if (respuesta.ok) {
-            alert("¡Producto actualizado!");
+            alert("¡Producto actualizado exitosamente!");
             cargarProductos();
         } else {
             const errorData = await respuesta.json();
-            alert("Error al actualizar: " + JSON.stringify(errorData));
+            alert("Error al actualizar: " + (errorData.mensaje || "Datos inválidos"));
         }
     } catch (error) {
         alert("Error de conexión al intentar editar.");
