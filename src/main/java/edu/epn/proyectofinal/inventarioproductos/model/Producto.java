@@ -30,5 +30,6 @@ public class Producto {
     private Integer stock;
 
     @Column(name = "imagen_url")
+    @NotNull(message = "La imagenUrl no puede estar vacía")
     private String imagenUrl;
 }
