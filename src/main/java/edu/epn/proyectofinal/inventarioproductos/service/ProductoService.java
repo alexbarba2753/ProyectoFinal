@@ -64,6 +64,8 @@ public class ProductoService implements IProductoService{
 
     @Override
     public void eliminar(Long id) {
+        productoRepository.findById(id)
+                .orElseThrow(() -> new FindIdException(id));
         productoRepository.deleteById(id);
     }
 
@@ -92,3 +94,5 @@ public class ProductoService implements IProductoService{
         return p;
     }
 }
+
+

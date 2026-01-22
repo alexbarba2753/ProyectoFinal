@@ -8,9 +8,14 @@ import lombok.*;
 @AllArgsConstructor
 public class ProductoDTO {
     private Long id;
+    @NotBlank(message = "El nombre es obligatorio")
     private String nombre;
+    @NotBlank(message = "El anime es obligatorio")
     private String anime;
+    @NotNull(message = "El precio es obligatorio")
     private Double precio;
+    @NotNull(message = "El stock es obligatorio")
     private Integer stock;
+    @NotNull(message = "La imagenUrl es obligatoria")
     private String imagenUrl;
 }
