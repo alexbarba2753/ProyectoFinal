@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 @Service
 public class ProductoService implements IProductoService{
 
-
     private final IProductoRepository productoRepository;
 
     public ProductoService(IProductoRepository productoRepository) {
@@ -40,7 +39,7 @@ public class ProductoService implements IProductoService{
     }
 
     @Override
-    public ProductoDTO actualizar(Long id, ProductoDTO productoDTO) {
+    public ProductoDTO actualizarParcial(Long id, ProductoDTO productoDTO) {
         Producto producto = productoRepository.findById(id)
                 .orElseThrow(() -> new FindIdException(id));
 
@@ -58,6 +57,20 @@ public class ProductoService implements IProductoService{
 
         if (productoDTO.getImagenUrl()!= null && !productoDTO.getImagenUrl().isBlank())
             producto.setImagenUrl(productoDTO.getImagenUrl());
+
+        return convertirADto(productoRepository.save(producto));
+    }
+
+    @Override
+    public ProductoDTO actualizarCompleto(Long id, ProductoDTO dto) {
+        Producto producto = productoRepository.findById(id)
+                .orElseThrow(() -> new FindIdException(id));
+
+        producto.setNombre(dto.getNombre());
+        producto.setAnime(dto.getAnime());
+        producto.setPrecio(dto.getPrecio());
+        producto.setStock(dto.getStock());
+        producto.setImagenUrl(dto.getImagenUrl());
 
         return convertirADto(productoRepository.save(producto));
     }

@@ -38,16 +38,16 @@ public class ProductoController {
         return new ResponseEntity<>(productoService.guardar(dto), HttpStatus.CREATED);
     }
 
-    // Put actualizar producto existente
+    // Put actualizar completamente un producto existente
     @PutMapping("/productos/{id}")
-    public ResponseEntity<ProductoDTO> editar(@PathVariable Long id, @RequestBody ProductoDTO dto) {
-        return ResponseEntity.ok(productoService.actualizar(id, dto));
+    public ResponseEntity<ProductoDTO> editar(@PathVariable Long id,@Valid @RequestBody ProductoDTO dto) {
+        return ResponseEntity.ok(productoService.actualizarCompleto(id, dto));
     }
 
-    // Patch actualizar producto existente
+    // Patch actualizar parcialmente un producto existente
     @PatchMapping("/productos/{id}")
     public ResponseEntity<ProductoDTO> editarUnit(@PathVariable Long id, @RequestBody ProductoDTO dto) {
-        return ResponseEntity.ok(productoService.actualizar(id, dto));
+        return ResponseEntity.ok(productoService.actualizarParcial(id, dto));
     }
 
     // Delete producto por ID
