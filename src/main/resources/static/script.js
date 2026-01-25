@@ -1,4 +1,5 @@
 const API_URL = 'https://proyectofinal-ynd2.onrender.com/api/productos';
+//const API_URL = 'http://localhost:8080/api/productos';
 
 
 // Forzar que la página cargue en el tope superior

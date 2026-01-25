@@ -14,14 +14,23 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.stream.Collectors;
 
+/**
+ * Interceptor Global de Excepciones.
+ * Utiliza @ControllerAdvice para capturar errores en cualquier parte de la aplicación
+ * y transformarlos en una respuesta JSON estandarizada.
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    // Formateador de fecha para el timestamp del error
     private String obtenerFechaActual() {
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 
-    // Método auxiliar para construir la respuesta
+    /**
+     * Método centralizado para construir objetos ResponseEntity.
+     * Optimiza el código evitando la repetición de instanciación de ErrorResponse.
+     */
     private ResponseEntity<ErrorResponse> crearRespuestaError(String titulo, String mensaje, HttpStatus status, HttpServletRequest request) {
         ErrorResponse error = new ErrorResponse(
                 obtenerFechaActual(),
@@ -33,19 +42,27 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(status).body(error);
     }
 
-    // 1. Caso: ID No encontrado (404)
+    /**
+     * Captura cuando no se encuentra un ID en la base de datos (404 Not Found).
+     */
     @ExceptionHandler(FindIdException.class)
     public ResponseEntity<ErrorResponse> manejarFindId(FindIdException ex, HttpServletRequest request) {
         return crearRespuestaError("Recurso no encontrado", ex.getMessage(), HttpStatus.NOT_FOUND, request);
     }
 
-    // 2. Caso: JSON mal formado o tipos de datos incorrectos (400)
+    /**
+     * Captura errores de sintaxis JSON o tipos de datos incompatibles (400 Bad Request).
+     * Ejemplo: Enviar texto en un campo numérico.
+     */
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorResponse> manejarErrorLectura(HttpMessageNotReadableException ex, HttpServletRequest request) {
         return crearRespuestaError("Error de formato", "JSON inválido o tipos de datos incorrectos.", HttpStatus.BAD_REQUEST, request);
     }
 
-    // 3. Caso: Error en @Valid del DTO (400)
+    /**
+     * Captura errores de validación en la capa DTO mediante @Valid (400 Bad Request).
+     * Recolecta todos los campos fallidos en un solo mensaje.
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> manejarValidacionDto(MethodArgumentNotValidException ex, HttpServletRequest request) {
         String detalles = ex.getBindingResult().getFieldErrors().stream()
@@ -54,13 +71,18 @@ public class GlobalExceptionHandler {
         return crearRespuestaError("Validación fallida (DTO)", detalles, HttpStatus.BAD_REQUEST, request);
     }
 
-    // 4. Caso: Errores de validación de la Entidad (POST, PUT, PATCH)
+    /**
+     * Maneja errores de integridad provenientes de la Entidad o la Transacción (400 Bad Request).
+     * Se encarga de "desenvolver" la excepción para encontrar la causa raíz (Root Cause).
+     */
     @ExceptionHandler({ConstraintViolationException.class, TransactionSystemException.class})
     public ResponseEntity<ErrorResponse> manejarErroresValidacionEntidad(Exception ex, HttpServletRequest request) {
         String mensaje = "Error de integridad en los datos.";
 
+        // Si el error viene de una transacción, extraemos la causa real
         Throwable cause = (ex instanceof TransactionSystemException) ? ((TransactionSystemException) ex).getRootCause() : ex;
 
+        // Si la causa es una violación de restricciones, extraemos los mensajes específicos
         if (cause instanceof ConstraintViolationException) {
             mensaje = ((ConstraintViolationException) cause).getConstraintViolations().stream()
                     .map(v -> v.getPropertyPath() + ": " + v.getMessage())
@@ -70,7 +92,23 @@ public class GlobalExceptionHandler {
         return crearRespuestaError("Violación de restricciones", mensaje, HttpStatus.BAD_REQUEST, request);
     }
 
-    // 5. Caso General: Errores 500
+    /**
+     * Captura intentos de crear o actualizar productos con Nombre e Imagen ya existentes (409 Conflict).
+     */
+    @ExceptionHandler(DuplicateProductException.class)
+    public ResponseEntity<ErrorResponse> manejarDuplicados(DuplicateProductException ex, HttpServletRequest request) {
+        return crearRespuestaError(
+                "Conflicto de duplicidad",
+                ex.getMessage(),
+                HttpStatus.CONFLICT,
+                request
+        );
+    }
+
+    /**
+     * "Atrapa-todo": Captura cualquier excepción no controlada (500 Internal Server Error).
+     * Evita que la API exponga trazas de error internas al usuario final.
+     */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> manejarGenerico(Exception ex, HttpServletRequest request) {
         return crearRespuestaError("Error interno", "Ocurrió un fallo inesperado: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, request);

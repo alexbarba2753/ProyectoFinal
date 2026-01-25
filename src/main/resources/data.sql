@@ -1,8 +1,8 @@
 INSERT INTO productos (nombre, anime, precio, stock, imagen_url) VALUES
-('Tengen Uzui Nichirin Swords', 'Demon Slayer Kimetsu no Yaiba ', 120.50, 4, 'https://ecuacollections.com/images/thumbs/0022572_proplica-demon-slayer-kimetsu-no-yaiba-tengen-uzuis-nichirin-swords_550.jpeg');
+('Tengen Uzui Nichirin Swords', 'Kimetsu no Yaiba ', 120.50, 4, 'https://ecuacollections.com/images/thumbs/0022572_proplica-demon-slayer-kimetsu-no-yaiba-tengen-uzuis-nichirin-swords_550.jpeg');
 
 INSERT INTO productos (nombre, anime, precio, stock, imagen_url) VALUES
-('Kamado Tanjiro (Hinokami Kagura)', 'Demon Slayer Kimetsu no Yaiba', 75.00, 5, 'https://ecuacollections.com/images/thumbs/0018572_figuarts-zero-demon-slayer-kimetsu-no-yaiba-kamado-tanjiro-hinokami-kagura_550.jpeg');
+('Kamado Tanjiro (Hinokami Kagura)', 'Kimetsu no Yaiba', 75.00, 5, 'https://ecuacollections.com/images/thumbs/0018572_figuarts-zero-demon-slayer-kimetsu-no-yaiba-kamado-tanjiro-hinokami-kagura_550.jpeg');
 
 INSERT INTO productos (nombre, anime, precio, stock, imagen_url) VALUES
 ('Figura Ryuk', 'Death Note', 55.00, 7, 'https://www.raccoongames.es/img/productos/death-note-figura-ryuk/death-note-figurine-ryuk%202-2.jpg');
