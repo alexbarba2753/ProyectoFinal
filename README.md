@@ -39,28 +39,81 @@ El proyecto utiliza una arquitectura desacoplada para optimizar recursos y escal
     * **Listar**: Consulta en tiempo real del catálogo.
     * **Actualizar (PUT/PATCH)**: Lógica flexible que permite editar atributos específicos sin afectar la integridad de la base de datos.
     * **Eliminar**: Remoción segura de registros con confirmación de usuario.
-* **Validaciones Preventivas**: Control de tipos de datos (isNaN) en el frontend y excepciones personalizadas (`FindIdException`) en el backend.
+* **Validaciones Preventivas**: Control de tipos de datos (isNaN) en el frontend y excepciones personalizadas (`FindIdException, DuplicateProductException`) en el backend.
+
+
+---
+
+## Estructura del Proyecto
+```text
+.
+├── src/main/java/edu/epn/...
+│   ├── config/          # Configuración de CORS
+│   ├── controller/      # Endpoints REST de la API
+│   ├── dto/             # Objetos de transporte de datos
+│   ├── exception/       # Manejador global y excepciones personalizadas
+│   ├── model/           # Entidades JPA (Base de datos)
+│   ├── repository/      # Interfaces de persistencia
+│   └── service/         # Lógica de negocio y mapeos
+├── src/main/resources/
+│   ├── static/          # Frontend (HTML, CSS, JS, Assets)
+│   ├── application.properties # Configuración del sistema
+│   └── data.sql         # Datos semilla (Seeders)
+├── build.gradle         # Gestión de dependencias (Gradle)
+├── Dockerfile           # Receta para contenedorización en Render
+└── README.md            # Documentación del proyecto
+```
 
 ---
 
 ## Instalación y Ejecución Local
 
-1. Clonar el repositorio:
+Para poner en marcha el proyecto en un entorno de desarrollo, sigue estos pasos detallados:
+
+### Requisitos Previos
+* **Java Development Kit (JDK) 21**: Necesario para compilar el código fuente del backend.
+* **Navegador Web**: Recomendado Chrome o Edge para pruebas de consola.
+* **IDE (Opcional)**: IntelliJ IDEA o VS Code con extensiones de Java.
+
+###  Pasos para el Backend
+1. **Clonar el repositorio**:
    ```bash
-   git clone [https://github.com/tu-usuario/ProyectoFinal.git](https://github.com/tu-usuario/ProyectoFinal.git)
-2. Ejecutar el backend (Requiere JDK 21):
+   git clone https://github.com/alexbarba2753/ProyectoFinal.git
+   cd ProyectoFinal
+2. **Cargar Dependencias**: El proyecto utiliza Gradle. Al ejecutarlo por primera vez, se descargarán automáticamente todas las librerías necesarias.
+
+3. **Ejecutar la Aplicación**:Utiliza el wrapper de Gradle incluido en el proyecto:
+   # En Windows:
+   ```bash
+   gradlew.bat bootRun
+   ```
+   # En Linux/Mac:
    ```bash
    ./gradlew bootRun
-3. Abrir el archivo index.html en el navegador (Asegúrate de cambiar la API_URL a localhost).
+   ```
+   El servidor estará activo en: *http://localhost:8080*
 
----
+5. **Verificar Base de Datos (Opcional)**:Puedes acceder a la consola de H2 para auditar las tablas en: *http://localhost:8080/h2-console*.
+
+###  Pasos para el Frontend
+
+1. Localiza el archivo de lógica en la ruta:
+   ```bash
+   src/main/resources/static/script.js
+   ```
+2. Asegúrate de que la constante de conexión apunte a tu servidor local:
+   ```bash
+   const API_URL = 'http://localhost:8080/api/productos';
+   ```
+3. Abre el archivo *src/main/resources/static/index.html* directamente en tu navegador.
+   
+   ---
 
 ## Enlances del Proyecto
 
-* ****:
-    * **FrontEnd**: [Registro de nuevas figuras con validación de campos obligatorios.](https://proyecto-final-zeta-tan.vercel.app)
-    * **API (Docs)**: [Consulta en tiempo real del catálogo.](https://proyectofinal-ynd2.onrender.com/swagger-ui/index.html#/)
-
+ * **Frontend (Vercel)**: [⚡MultiVerse Geek](https://proyecto-final-zeta-tan.vercel.app)
+ * **Documentación API (Swagger/Render)**: [Interactiva API Docs](https://proyectofinal-ynd2.onrender.com/swagger-ui/index.html#/)
+ * **Repositorio Código Fuente**: [GitHub Repository](https://github.com/alexbarba2753/ProyectoFinal.git)
 ---
 
 ## Autores
